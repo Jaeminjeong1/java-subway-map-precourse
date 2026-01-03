@@ -1,5 +1,6 @@
 package subway.view;
 
+import subway.domain.Line;
 import subway.domain.Station;
 
 import java.util.List;
@@ -30,6 +31,10 @@ public class OutputView {
     private static final String DELETE_STATION = "지하철 역이 삭제되었습니다.";
     private static final String ADD_STATION = "지하철 역이 등록되었습니다.";
     private static final String LIST_STATION = "\n## 역 목록";
+    private static final String ADD_LINE = "지하철 노선이 등록되었습니다.";
+    private static final String DELETE_LINE = "지하철 노선이 삭제되었습니다.";
+    private static final String LIST_LINE = "\n## 노선 목록";
+
 
     private OutputView() {
     }
@@ -65,6 +70,26 @@ public class OutputView {
         }
         System.out.println("\n");
     }
+
+    //Line
+
+    public static void printInfoAddLine() {
+        System.out.println(INFO_PREFIX + ADD_LINE);
+    }
+
+    public static void printInfoDeleteLine() {
+        System.out.println(INFO_PREFIX + DELETE_LINE);
+    }
+
+    public static void printLineList(List<Line> lines) {
+        System.out.println(LIST_LINE);
+        for (Line line : lines) {
+            System.out.println(INFO_PREFIX + line.getName());
+        }
+        System.out.println("\n");
+    }
+
+
 
     // 에러메세지 출력
     public static void printErrorMessage(IllegalArgumentException e) {

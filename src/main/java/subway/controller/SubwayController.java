@@ -5,6 +5,9 @@ import subway.util.Validator;
 import subway.view.InputView;
 import subway.view.OutputView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SubwayController {
 
     private final SubwayService subwayService;
@@ -23,11 +26,17 @@ public class SubwayController {
                 playStationFunction(stationInput);
                 break;
             }
+            if (mainInput.equals("2")) {
+                String LineInput = inputLineFunctionAndValidate();
+                playLineFunction(LineInput);
+                break;
+            }
         }
             // 번호에 맞게 다음 로직 실행.
 
     }
 
+    //Station
     private void playStationFunction(String stationInput) {
         if (stationInput.equals("1")) {
             String inputtedStationAddName = InputView.inputStationAddName();
@@ -43,6 +52,26 @@ public class SubwayController {
         }
         if (stationInput.equals("3")) {
             OutputView.printStationList(subwayService.getAllStation());
+        }
+    }
+
+    //Line
+    private void playLineFunction(String lineInput) {
+        if (lineInput.equals("1")) {
+            String addLine = inputAddLine();
+            List<String> stations = inputAddUpAndDownLine();
+            subwayService.addLine(addLine, stations);
+            OutputView.printInfoAddLine();
+            return;
+        }
+        if (lineInput.equals("2")) {
+            String deleteLine = inputDeleteLine();
+            subwayService.deleteLine(deleteLine);
+            OutputView.printInfoDeleteLine();
+            return;
+        }
+        if (lineInput.equals("3")) {
+            OutputView.printLineList(subwayService.getAllLine());
         }
     }
 
@@ -95,6 +124,50 @@ public class SubwayController {
                 String input = InputView.inputFunction();
                 Validator.validateSectionInput(input);
 
+                return input;
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e);
+            }
+        }
+    }
+
+    // Line
+
+    private String inputAddLine() {
+        while (true) {
+            try {
+                String input = InputView.inputLineAddName();
+                subwayService.validateContainsLine(input);
+                return input;
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e);
+            }
+        }
+    }
+
+    private List<String> inputAddUpAndDownLine() {
+        while (true) {
+            try {
+                String upStation = InputView.inputLineAddUpName();
+                subwayService.validateContainsStation(upStation);
+                String downStation = InputView.inputLineAddDownName();
+                subwayService.validateContainsStation(downStation);
+
+                List<String> stations = new ArrayList<>();
+                stations.add(upStation);
+                stations.add(downStation);
+                return stations;
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e);
+            }
+        }
+    }
+
+    private String inputDeleteLine() {
+        while (true) {
+            try {
+                String input = InputView.inputLineDeleteName();
+                subwayService.validateContainsLine(input);
                 return input;
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e);

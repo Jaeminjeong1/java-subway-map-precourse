@@ -27,8 +27,4 @@ public class StationRepository {
         return false;
     }
 
-    public static List<Station> getStations() {
-        return List.copyOf(stations);
-    }
-
 }
