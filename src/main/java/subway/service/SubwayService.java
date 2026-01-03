@@ -13,6 +13,10 @@ import static subway.util.ErrorMessage.*;
 
 public class SubwayService {
 
+    public void init() {
+        StationRepository.init();
+        LineRepository.init();
+    }
 
     //Station
 
@@ -69,6 +73,26 @@ public class SubwayService {
 
     public List<Line> getAllLine() {
         return LineRepository.lines();
+    }
+
+    //Section
+
+    public void addSection(String addLine, String addStation, int addSequence) {
+        Station station = StationRepository.getStationByName(addStation);
+        for (Line line : LineRepository.lines()) {
+            if (line.getName().equals(addLine)) {
+                line.addSection(station, addSequence);
+            }
+        }
+    }
+
+    public void deleteSection(String deleteLine, String deleteStation) {
+        Station station = StationRepository.getStationByName(deleteStation);
+        for (Line line : LineRepository.lines()) {
+            if (line.getName().equals(deleteLine)) {
+                line.deleteSection(station);
+            }
+        }
     }
 
 }

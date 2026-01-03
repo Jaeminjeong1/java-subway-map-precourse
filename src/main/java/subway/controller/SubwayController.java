@@ -17,6 +17,7 @@ public class SubwayController {
     }
 
     public void start() {
+        init();
         // 시작 멘트 받기
         // 메인화면에서 원하는 기능 받기
         while(true) {
@@ -24,16 +25,30 @@ public class SubwayController {
             if (mainInput.equals("1")) {
                 String stationInput = inputStationFunctionAndValidate();
                 playStationFunction(stationInput);
-                break;
+                continue;
             }
             if (mainInput.equals("2")) {
-                String LineInput = inputLineFunctionAndValidate();
-                playLineFunction(LineInput);
+                String lineInput = inputLineFunctionAndValidate();
+                playLineFunction(lineInput);
+                continue;
+            }
+            if (mainInput.equals("3")) {
+                String sectionInput = inputSectionFunctionAndValidate();
+                playSectionFunction(sectionInput);
+            }
+            if (mainInput.equals("4")) {
+//                subwayService.getAllSection();
+            }
+            if (mainInput.equals("Q")) {
                 break;
             }
         }
-            // 번호에 맞게 다음 로직 실행.
 
+    }
+
+    //init
+    private void init() {
+        subwayService.init();
     }
 
     //Station
@@ -72,6 +87,24 @@ public class SubwayController {
         }
         if (lineInput.equals("3")) {
             OutputView.printLineList(subwayService.getAllLine());
+        }
+    }
+
+    //Section
+    private void playSectionFunction(String sectionInput) {
+        if (sectionInput.equals("1")) {
+            String addLine = InputView.inputSectionLine();
+            String addStation = InputView.inputSectionStation();
+            int addSequence = InputView.inputSectionSequence();
+            subwayService.addSection(addLine, addStation, addSequence);
+            OutputView.printInfoAddSection();
+            return;
+        }
+        if (sectionInput.equals("2")) {
+            String deleteLine = InputView.inputDeleteSectionLine();
+            String deleteStation = InputView.inputDeleteSectionStation();
+            subwayService.deleteSection(deleteLine, deleteStation);
+            OutputView.printInfoDeleteSection();
         }
     }
 

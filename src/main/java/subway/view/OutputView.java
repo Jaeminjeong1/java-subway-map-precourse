@@ -34,6 +34,9 @@ public class OutputView {
     private static final String ADD_LINE = "지하철 노선이 등록되었습니다.";
     private static final String DELETE_LINE = "지하철 노선이 삭제되었습니다.";
     private static final String LIST_LINE = "\n## 노선 목록";
+    //Section
+    private static final String ADD_SECTION = "구간이 등록되었습니다.";
+    private static final String DELETE_SECTION = "구간이 삭제되었습니다.";
 
 
     private OutputView() {
@@ -87,6 +90,16 @@ public class OutputView {
             System.out.println(INFO_PREFIX + line.getName());
         }
         System.out.println("\n");
+    }
+
+    //Section
+
+    public static void printInfoAddSection() {
+        System.out.println(INFO_PREFIX + ADD_SECTION);
+    }
+
+    public static void printInfoDeleteSection() {
+        System.out.println(INFO_PREFIX + DELETE_SECTION);
     }
 
 

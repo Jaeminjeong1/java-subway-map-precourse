@@ -20,5 +20,13 @@ public class Line {
         return name;
     }
 
+    public void addSection(Station station, int sequence) {
+        section.add(sequence - 1, station);
+    }
+
+    public void deleteSection(Station station) {
+        section.remove(station);
+    }
+
     // 추가 기능 구현
 }
