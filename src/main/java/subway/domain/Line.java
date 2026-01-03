@@ -9,7 +9,7 @@ public class Line {
 
     private Line(String name, List<Station> section) {
         this.name = name;
-        this.section = Collections.unmodifiableList(section);
+        this.section = section;
     }
 
     public static Line of (String name, List<Station> section) {
@@ -18,6 +18,10 @@ public class Line {
 
     public String getName() {
         return name;
+    }
+
+    public List<Station> getSection() {
+        return List.copyOf(section);
     }
 
     public void addSection(Station station, int sequence) {

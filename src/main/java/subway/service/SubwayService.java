@@ -49,15 +49,15 @@ public class SubwayService {
     // Line
 
     public void validateContainsLine(String input) {
-        if (!LineRepository.contains(input)) {
-            throw new IllegalArgumentException(NOT_EXIST_LINE_ERROR.getMessage());
+        if (LineRepository.contains(input)) {
+            throw new IllegalArgumentException(DUPLICATE_LINE_ERROR.getMessage());
         }
     }
 
     public void addLine(String lineName, List<String> stations) {
         List<Station> stationList = new ArrayList<>();
         for (String station : stations) {
-            stationList.add(Station.from(station));
+            stationList.add(StationRepository.getStationByName(station));
         }
 
         LineRepository.addLine(Line.of(lineName, stationList));

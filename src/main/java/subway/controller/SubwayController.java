@@ -1,5 +1,6 @@
 package subway.controller;
 
+import subway.domain.Line;
 import subway.service.SubwayService;
 import subway.util.Validator;
 import subway.view.InputView;
@@ -37,7 +38,8 @@ public class SubwayController {
                 playSectionFunction(sectionInput);
             }
             if (mainInput.equals("4")) {
-//                subwayService.getAllSection();
+                List<Line> allLines = subwayService.getAllLine();
+                OutputView.printAllLines(allLines);
             }
             if (mainInput.equals("Q")) {
                 break;
@@ -199,9 +201,7 @@ public class SubwayController {
     private String inputDeleteLine() {
         while (true) {
             try {
-                String input = InputView.inputLineDeleteName();
-                subwayService.validateContainsLine(input);
-                return input;
+                return InputView.inputLineDeleteName();
             } catch (IllegalArgumentException e) {
                 OutputView.printErrorMessage(e);
             }
