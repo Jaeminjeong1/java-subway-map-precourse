@@ -10,7 +10,7 @@ public class Validator {
     private static final List<String> stationNumber = List.of("1", "2", "3", "B");
     private static final List<String> lineNumber = List.of("1", "2", "3", "B");
     private static final List<String> sectionNumber = List.of("1", "2", "B");
-    private static final int MIN_NUM = 1; // 수정
+    private static final int MIN_NAME_LENGTH = 2;
     private static final int MAX_NUM = 10; // 수정
 
     private Validator() {
@@ -50,8 +50,8 @@ public class Validator {
 
     // 값 범위 검증
     public static void validateRange(int value) {
-        if (value < MIN_NUM || value > MAX_NUM) {
-            throw new IllegalArgumentException("ERROR_MESSAGE.");
+        if (value < MIN_NAME_LENGTH) {
+            throw new IllegalArgumentException(INPUT_ERROR.getMessage());
         }
     }
 }
