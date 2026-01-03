@@ -1,6 +1,9 @@
 package subway.controller;
 
 import subway.service.SubwayService;
+import subway.util.Validator;
+import subway.view.InputView;
+import subway.view.OutputView;
 
 public class SubwayController {
 
@@ -11,21 +14,25 @@ public class SubwayController {
     }
 
     public void start() {
+        // 시작 멘트 받기
+        String mainNumber =  inputMainFunctionAndValidate();
+        // 메인화면에서 원하는 기능 받기
+            // 번호에 맞게 다음 로직 실행.
 
     }
 
-    // 반환 타입 정하기
-    // 메서드명 input~ 으로 짓기
-//    private 반환타입 메서드명() {
-//        while (true) {
-//            try {
-//                // 서비스 메서드 호출
-//
-//                return *;
-//
-//            } catch (IllegalArgumentException e) {
-//                OutputView.printErrorMessage(e);
-//            }
-//        }
-//    }
+    private String inputMainFunctionAndValidate() {
+        while (true) {
+            try {
+                OutputView.printMainScreen();
+                String input = InputView.inputFunction();
+                Validator.validateMainInput(input);
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(e);
+            }
+        }
+    }
+
 }
